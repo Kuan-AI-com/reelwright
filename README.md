@@ -7,13 +7,13 @@
 **Self-hosted AI video studio** · script → voice → captions → motion graphics → MP4<br>
 Local voice, no per-video fees, a review step before anything renders, and AI disclosure built in.
 
-[![CI](https://github.com/OWNER/reelwright/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/reelwright/actions/workflows/ci.yml)
+[![CI](https://github.com/Kuan-AI-com/reelwright/actions/workflows/ci.yml/badge.svg)](https://github.com/Kuan-AI-com/reelwright/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 ![Node 22+](https://img.shields.io/badge/node-22%2B-339933)
 ![Docker](https://img.shields.io/badge/docker-amd64%20%7C%20arm64-2496ED)
 
-<!-- Replace REFERRALCODE and OWNER before publishing. Docs: docs/deploy-hostinger.md -->
-[![Deploy on Hostinger](https://img.shields.io/badge/Deploy%20on-Hostinger-673DE6?logo=hostinger&logoColor=white)](https://www.hostinger.com/docker-hosting?compose_url=https://raw.githubusercontent.com/OWNER/reelwright/main/docker-compose.yml&REFERRALCODE=REFERRALCODE)
+<!-- Hostinger partner link: append &REFERRALCODE=<code> to the button URL. Docs: docs/deploy-hostinger.md -->
+[![Deploy on Hostinger](https://img.shields.io/badge/Deploy%20on-Hostinger-673DE6?logo=hostinger&logoColor=white)](https://www.hostinger.com/docker-hosting?compose_url=https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.yml)
 
 <img src="docs/media/demo.gif" width="640" alt="A Reelwright explainer: title card, a counting statistic, word-highlighted captions">
 &nbsp;
@@ -48,7 +48,7 @@ Local voice, no per-video fees, a review step before anything renders, and AI di
 ### Docker (recommended)
 
 ```bash
-curl -fsSLO https://raw.githubusercontent.com/OWNER/reelwright/main/docker-compose.yml
+curl -fsSLO https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.yml
 echo "REELWRIGHT_PASSWORD=$(openssl rand -base64 18)" > .env
 docker compose up -d
 # → open http://localhost:8080
@@ -61,7 +61,7 @@ Everything is in the image: Chromium, ffmpeg, the voice model and fonts.
 Requires Node 22+, ffmpeg and Python 3.10–3.13 (for the local voice).
 
 ```bash
-git clone https://github.com/OWNER/reelwright && cd reelwright
+git clone https://github.com/Kuan-AI-com/reelwright && cd reelwright
 npm install
 npx reelwright doctor                                       # checks ffmpeg, browser, voice, LLM
 npx reelwright make --storyboard examples/how-tides-work.json

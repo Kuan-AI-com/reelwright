@@ -2,7 +2,7 @@
 # Point a DNS A record at the server, then: DOMAIN=video.example.com docker compose -f docker-compose.https.yml up -d
 services:
   reelwright:
-    image: ghcr.io/OWNER/reelwright:latest
+    image: ghcr.io/kuan-ai-com/reelwright:latest
     restart: unless-stopped
     environment:
       REELWRIGHT_PASSWORD: ${REELWRIGHT_PASSWORD:?set REELWRIGHT_PASSWORD}

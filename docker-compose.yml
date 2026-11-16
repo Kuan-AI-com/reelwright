@@ -2,7 +2,7 @@
 # The only thing you must set is REELWRIGHT_PASSWORD. Add an LLM key to let it write scripts.
 services:
   reelwright:
-    image: ghcr.io/OWNER/reelwright:latest
+    image: ghcr.io/kuan-ai-com/reelwright:latest
     restart: unless-stopped
     ports:
       - "8080:8080"

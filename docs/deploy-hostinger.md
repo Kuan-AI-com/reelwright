@@ -28,7 +28,7 @@ There is no GPU on these plans; everything renders on the CPU. Render time grows
 ```bash
 # On the server
 mkdir reelwright && cd reelwright
-curl -fsSLO https://raw.githubusercontent.com/OWNER/reelwright/main/docker-compose.yml
+curl -fsSLO https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.yml
 echo "REELWRIGHT_PASSWORD=$(openssl rand -base64 18)" > .env
 docker compose up -d
 docker compose logs -f   # wait for "Reelwright studio on …"
@@ -40,7 +40,7 @@ docker compose logs -f   # wait for "Reelwright studio on …"
 2. Run Reelwright behind Caddy:
 
 ```bash
-curl -fsSLO https://raw.githubusercontent.com/OWNER/reelwright/main/docker-compose.https.yml
+curl -fsSLO https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.https.yml
 echo "DOMAIN=video.example.com" >> .env
 docker compose -f docker-compose.https.yml up -d
 ```

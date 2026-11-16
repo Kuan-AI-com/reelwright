@@ -38,7 +38,9 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: smoke test
+        env:
+          OWNER: ${{ github.repository_owner }}
         run: |
-          docker run -d --name rw -p 8080:8080 -e REELWRIGHT_PASSWORD=ci ghcr.io/${{ github.repository_owner }}/reelwright:sha-${GITHUB_SHA::7}
+          docker run -d --name rw -p 8080:8080 -e REELWRIGHT_PASSWORD=ci "ghcr.io/${OWNER,,}/reelwright:sha-${GITHUB_SHA::7}"
           for i in $(seq 1 30); do curl -fs localhost:8080/api/health && exit 0; sleep 2; done
           docker logs rw; exit 1
