@@ -1,0 +1,31 @@
+# Same stack behind Caddy with automatic HTTPS.
+# Point a DNS A record at the server, then: DOMAIN=video.example.com docker compose -f docker-compose.https.yml up -d
+services:
+  reelwright:
+    image: ghcr.io/OWNER/reelwright:latest
+    restart: unless-stopped
+    environment:
+      REELWRIGHT_PASSWORD: ${REELWRIGHT_PASSWORD:?set REELWRIGHT_PASSWORD}
+      LLM_PROVIDER: ${LLM_PROVIDER:-none}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      RENDER_QUALITY: ${RENDER_QUALITY:-looks}
+    volumes:
+      - reelwright-data:/data
+    shm_size: "1gb"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    command: caddy reverse-proxy --from ${DOMAIN:?set DOMAIN} --to reelwright:8080
+    volumes:
+      - caddy-data:/data
+    depends_on:
+      - reelwright
+
+volumes:
+  reelwright-data:
+  caddy-data:

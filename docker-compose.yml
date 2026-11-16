@@ -1,0 +1,20 @@
+# One-click deploy (Hostinger Docker Manager, Coolify, Portainer, plain `docker compose up -d`).
+# The only thing you must set is REELWRIGHT_PASSWORD. Add an LLM key to let it write scripts.
+services:
+  reelwright:
+    image: ghcr.io/OWNER/reelwright:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      REELWRIGHT_PASSWORD: ${REELWRIGHT_PASSWORD:?set REELWRIGHT_PASSWORD}
+      LLM_PROVIDER: ${LLM_PROVIDER:-none}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      RENDER_QUALITY: ${RENDER_QUALITY:-looks}
+    volumes:
+      - reelwright-data:/data
+    shm_size: "1gb"
+
+volumes:
+  reelwright-data:

@@ -1,0 +1,9 @@
+Reelwright
+Copyright 2026 The Reelwright Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It drives, as separate programs, third-party software that keeps its own
+license — see THIRD_PARTY_NOTICES.md. The Docker image bundles some of them,
+including GPL-licensed programs (FFmpeg as built by Debian, eSpeak NG), whose
+license terms and source code offer are described there.

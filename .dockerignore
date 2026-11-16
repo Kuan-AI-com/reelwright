@@ -1,0 +1,7 @@
+node_modules
+data
+*.mp4
+.git
+.github
+docs/media
+test

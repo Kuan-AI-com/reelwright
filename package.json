@@ -1,0 +1,45 @@
+{
+  "name": "reelwright",
+  "version": "0.1.0",
+  "description": "Self-hosted AI video studio: topic → script → voice → captions → animated MP4, with an editorial pipeline from idea to publish.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "reelwright": "src/cli.mjs"
+  },
+  "files": [
+    "src",
+    "web",
+    "skills",
+    "examples",
+    "LICENSE",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node src/cli.mjs serve",
+    "dev": "node --watch src/cli.mjs serve",
+    "make": "node src/cli.mjs make",
+    "doctor": "node src/cli.mjs doctor",
+    "test": "node --test --test-reporter=spec test/*.test.mjs",
+    "check": "node --check src/*.mjs src/compose/*.mjs && npm test"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.8.0",
+    "hyperframes": "0.9.56"
+  },
+  "keywords": [
+    "video",
+    "ai",
+    "text-to-video",
+    "explainer",
+    "self-hosted",
+    "tts",
+    "captions",
+    "hyperframes",
+    "docker"
+  ]
+}

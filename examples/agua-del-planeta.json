@@ -1,0 +1,15 @@
+{
+  "title": "¿Dónde está el agua de la Tierra?",
+  "language": "es",
+  "aspect": "9:16",
+  "theme": "paper",
+  "voice": "ef_dora",
+  "captions": true,
+  "scenes": [
+    { "type": "title", "heading": "¿Dónde está el agua de la Tierra?", "subheading": "Spoiler: casi toda es salada", "narration": "Vivimos en un planeta azul. Pero, ¿dónde está realmente toda esa agua?" },
+    { "type": "stat", "value": 96.5, "decimals": 1, "suffix": "%", "label": "del agua del planeta está en los océanos", "source": "USGS, The Water Cycle", "narration": "Casi el noventa y siete por ciento del agua de la Tierra está en los océanos. Es agua salada." },
+    { "type": "bars", "heading": "El resto, repartido", "unit": "%", "bars": [ { "label": "Hielo y glaciares", "value": 1.74 }, { "label": "Agua subterránea", "value": 1.69 }, { "label": "Lagos, ríos y otros", "value": 0.07 } ], "source": "USGS", "narration": "Lo poco que queda está sobre todo congelado en hielo y glaciares, o escondido bajo tierra. Lagos y ríos son una parte diminuta." },
+    { "type": "quote", "quote": "Cuando el pozo se seca, sabemos el valor del agua.", "author": "Benjamin Franklin, 1746", "narration": "Como escribió Benjamin Franklin: cuando el pozo se seca, sabemos el valor del agua." },
+    { "type": "outro", "heading": "Cuídala", "subheading": "Cada gota cuenta", "narration": "Así que la próxima vez que abras el grifo, recuerda lo escasa que es el agua dulce." }
+  ]
+}
