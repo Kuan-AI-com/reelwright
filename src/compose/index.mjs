@@ -34,34 +34,33 @@ function sceneBody(sc, dur) {
   switch (sc.type) {
     case 'title':
       return `
-      <div class="kicker" ${a('grow', 0.05, ' data-len="0.6"')}></div>
-      <h1 ${a('rise', 0.15)}>${esc(sc.heading)}</h1>
-      ${sc.subheading ? `<p class="sub" ${a('rise', 0.5)}>${esc(sc.subheading)}</p>` : ''}`;
+      <h1 ${a('rise', 0.15, ' data-len="0.8"')}>${esc(sc.heading)}</h1>
+      <div class="rule" ${a('grow', 0.45, ' data-len="0.9"')}></div>
+      ${sc.subheading ? `<p class="sub" ${a('fade', 0.7)}>${esc(sc.subheading)}</p>` : ''}`;
     case 'outro':
       return `
-      <h1 ${a('pop', 0.1, ' data-len="0.8"')}>${esc(sc.heading)}</h1>
-      ${sc.subheading ? `<p class="sub" ${a('rise', 0.55)}>${esc(sc.subheading)}</p>` : ''}
-      <div class="kicker" ${a('grow', 0.8, ' data-len="0.6"')}></div>`;
+      ${sc.subheading ? `<p class="tag" ${a('fade', 0.1)}>${esc(sc.subheading)}</p>` : ''}
+      <h1 ${a('rise', 0.2, ' data-len="0.8"')}>${esc(sc.heading)}</h1>`;
     case 'bullets':
       return `
       <h2 ${a('rise', 0.1)}>${esc(sc.heading)}</h2>
-      <ul class="points">
-        ${sc.items.map((it, i) => `<li ${a('rise', stagger(i, sc.items.length, dur))}><span class="dot"></span><span>${esc(it)}</span></li>`).join('\n        ')}
-      </ul>`;
+      <ol class="points">
+        ${sc.items.map((it, i) => `<li ${a('rise', stagger(i, sc.items.length, dur))}><span class="n">${String(i + 1).padStart(2, '0')}</span><span>${esc(it)}</span></li>`).join('\n        ')}
+      </ol>`;
     case 'stat':
       return `
-      <div class="big" ${a('count', 0.2, ` data-len="1.6" data-value="${sc.value}" data-decimals="${sc.decimals ?? 0}" data-prefix="${esc(sc.prefix || '')}" data-suffix="${esc(sc.suffix || '')}"`)}>${esc(sc.prefix || '')}0${esc(sc.suffix || '')}</div>
+      <div class="big" ${a('count', 0.2, ` data-len="1.4" data-value="${sc.value}" data-decimals="${sc.decimals ?? 0}" data-prefix="${esc(sc.prefix || '')}" data-suffix="${esc(sc.suffix || '')}"`)}>${esc(sc.prefix || '')}0${esc(sc.suffix || '')}</div>
       <p class="label" ${a('rise', 0.6)}>${esc(sc.label)}</p>
-      ${sc.source ? `<p class="source" ${a('fade', 1.2)}>${esc(sc.source)}</p>` : ''}`;
+      ${sc.source ? `<p class="source" ${a('fade', 1.1)}>${esc(sc.source)}</p>` : ''}`;
     case 'bars': {
       const max = Math.max(...sc.bars.map((b) => b.value)) || 1;
       const decimals = Math.min(2, Math.max(0, ...sc.bars.map((b) => (String(b.value).split('.')[1] || '').length)));
       const rows = sc.bars
         .map((b, i) => {
-          const at = 0.5 + i * 0.25;
-          return `<div class="bar-row" ${a('fade', at - 0.1, ' data-len="0.4"')}>
+          const at = 0.5 + i * 0.3;
+          return `<div class="bar-row${b.value === max ? ' top' : ''}" ${a('fade', at - 0.1, ' data-len="0.4"')}>
           <div class="bar-label">${esc(b.label)}</div>
-          <div class="bar-line"><div class="bar-track"><div class="bar-fill" ${a('bar', at, ` data-len="1.1" data-frac="${round(b.value / max)}"`)}></div></div><span class="bar-value" ${a('count', at, ` data-len="1.1" data-value="${b.value}" data-decimals="${decimals}" data-suffix="${esc(sc.unit ? ' ' + sc.unit : '')}"`)}>0</span></div>
+          <div class="bar-line"><div class="bar-track"><div class="bar-fill" ${a('bar', at, ` data-len="1" data-frac="${round(b.value / max)}"`)}></div></div><span class="bar-value" ${a('count', at, ` data-len="1" data-value="${b.value}" data-decimals="${decimals}" data-suffix="${esc(sc.unit ? ' ' + sc.unit : '')}"`)}>0</span></div>
         </div>`;
         })
         .join('\n        ');
@@ -74,23 +73,19 @@ function sceneBody(sc, dur) {
     }
     case 'quote':
       return `
-      <div class="quote-mark" ${a('pop', 0.05)}>“</div>
-      <blockquote ${a('rise', 0.25, ' data-len="0.9"')}>${esc(sc.quote)}</blockquote>
-      ${sc.author ? `<p class="author" ${a('fade', 0.9)}>— ${esc(sc.author)}</p>` : ''}`;
+      <blockquote ${a('rise', 0.15, ' data-len="0.9"')}><span class="q">“</span>${esc(sc.quote)}<span class="q">”</span></blockquote>
+      ${sc.author ? `<p class="author" ${a('fade', 0.9)}>${esc(sc.author)}</p>` : ''}`;
     case 'compare':
       return `
       ${sc.heading ? `<h2 ${a('rise', 0.1)}>${esc(sc.heading)}</h2>` : ''}
       <div class="compare">
-        <div class="card left" ${a('pop', 0.4)}><h3>${esc(sc.left.title)}</h3>${sc.left.text ? `<p>${esc(sc.left.text)}</p>` : ''}</div>
-        <div class="vs" ${a('fade', 0.8)}>VS</div>
-        <div class="card right" ${a('pop', Math.min(1.4, dur * 0.35))}><h3>${esc(sc.right.title)}</h3>${sc.right.text ? `<p>${esc(sc.right.text)}</p>` : ''}</div>
+        <div class="side left" ${a('rise', 0.4)}><h3>${esc(sc.left.title)}</h3>${sc.left.text ? `<p>${esc(sc.left.text)}</p>` : ''}</div>
+        <div class="side right" ${a('rise', Math.min(1.4, dur * 0.35))}><h3>${esc(sc.right.title)}</h3>${sc.right.text ? `<p>${esc(sc.right.text)}</p>` : ''}</div>
       </div>`;
     default:
       return '';
   }
 }
-
-const CENTERED = new Set(['title', 'outro', 'stat', 'quote']);
 
 /**
  * @param {object} sb validated storyboard
@@ -104,8 +99,10 @@ export function composeHtml(sb, timeline, opts = {}) {
   const scenesHtml = sb.scenes
     .map((sc, i) => {
       const tl = timeline.scenes[i];
-      const cls = CENTERED.has(sc.type) ? 'scene center' : 'scene';
+      const cls = 'scene';
+      const num = `${String(i + 1).padStart(2, '0')} / ${String(sb.scenes.length).padStart(2, '0')}`;
       return `  <section id="${sc.id}" class="clip ${cls} scene-${sc.type}" data-scene data-start="${tl.start}" data-duration="${tl.duration}" data-track-index="1" data-track-kind="graphics">
+    <div class="num">${num}</div>
     <div class="inner">${sceneBody(sc, tl.duration)}
     </div>
   </section>`;
@@ -143,7 +140,8 @@ export function composeHtml(sb, timeline, opts = {}) {
 </head>
 <body>
 <div id="root" data-composition-id="main" data-no-timeline data-start="0" data-duration="${total}" data-width="${width}" data-height="${height}" data-fps="${opts.fps || 30}">
-  <div id="bg" class="clip" data-start="0" data-duration="${total}" data-track-index="0"><div class="orbs" data-anim="drift" data-at="0"></div><div class="grain"></div></div>
+  <div id="bg" class="clip" data-start="0" data-duration="${total}" data-track-index="0"></div>
+  <div id="masthead" class="clip" data-start="0" data-duration="${total}" data-track-index="3"><span class="t">${esc(sb.title)}</span></div>
 ${scenesHtml}
   <div id="captions" data-track-kind="captions">
 ${captionsHtml}

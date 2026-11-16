@@ -5,7 +5,7 @@
  *
  * Markup contract (written by src/compose/index.mjs):
  *   [data-scene]             a scene clip; data-start / data-duration in seconds
- *   [data-anim]              rise | fade | pop | wipe | grow | bar | count | drift
+ *   [data-anim]              rise | fade | pop | wipe | grow | bar | count
  *     data-at                seconds after the scene starts
  *     data-len               animation length in seconds (default 0.7)
  *     data-frac              bar: final fill 0..1
@@ -82,14 +82,13 @@
       var p = easeOut(raw);
       var st = a.el.style;
       switch (a.kind) {
-        case 'rise': st.opacity = p; st.transform = 'translateY(' + (1 - p) * 0.6 + 'em)'; break;
+        case 'rise': st.opacity = p; st.transform = 'translateY(' + (1 - p) * 0.25 + 'em)'; break;
         case 'fade': st.opacity = p; break;
         case 'pop': st.opacity = p; st.transform = 'scale(' + (0.86 + 0.14 * easeOutBack(raw)) + ')'; break;
         case 'wipe': st.clipPath = 'inset(0 ' + (100 - p * 100) + '% 0 0)'; break;
         case 'grow': st.transform = 'scaleX(' + p + ')'; break;
         case 'bar': st.transform = 'scaleX(' + p * a.frac + ')'; break;
         case 'count': a.el.textContent = a.prefix + fmt(a.value * p, a.decimals) + a.suffix; break;
-        case 'drift': st.transform = 'translate(' + Math.sin(t * 0.21) * 3 + '%,' + Math.cos(t * 0.17) * 3 + '%) scale(' + (1.08 + Math.sin(t * 0.11) * 0.04) + ')'; break;
       }
     }
     for (var k = 0; k < words.length; k++) {

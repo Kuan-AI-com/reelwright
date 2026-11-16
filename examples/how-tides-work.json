@@ -8,13 +8,13 @@
   "scenes": [
     {
       "type": "title",
-      "heading": "Why the sea breathes twice a day",
-      "subheading": "Tides, explained in one minute",
+      "heading": "Why the sea rises twice a day",
+      "subheading": "The Moon, the Sun and a spinning Earth",
       "narration": "Twice a day, the ocean rises and falls. Here is why."
     },
     {
       "type": "bullets",
-      "heading": "Three forces at play",
+      "heading": "What moves the water",
       "items": [
         "The Moon's gravity pulls the water",
         "Sun: a weaker second pull",
@@ -46,7 +46,7 @@
     {
       "type": "outro",
       "heading": "Two bulges, one spinning planet",
-      "subheading": "High tide, low tide, twice a day",
+      "subheading": "High tide comes back every 12 h 25 min",
       "narration": "So, two bulges of water and one spinning planet. That's the whole trick."
     }
   ]

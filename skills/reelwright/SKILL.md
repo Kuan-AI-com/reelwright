@@ -31,7 +31,7 @@ Full schema with every field and limit: `references/storyboard.md`. The essentia
   "voice": "af_heart",
   "captions": true,
   "scenes": [
-    { "type": "title", "heading": "Why the sea breathes twice a day", "narration": "Twice a day, the ocean rises and falls. Here is why." },
+    { "type": "title", "heading": "Why the sea rises twice a day", "narration": "Twice a day, the ocean rises and falls. Here is why." },
     { "type": "stat", "value": 46, "suffix": "%", "label": "of the Moon's pull is what the Sun adds", "source": "NOAA", "narration": "..." },
     { "type": "outro", "heading": "Two bulges, one spinning planet", "narration": "..." }
   ]

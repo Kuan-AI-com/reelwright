@@ -28,7 +28,7 @@ This file is a good-faith summary, not legal advice. The license files shipped w
 | `phonemizer` | GPL-3.0 | Phonemizer used by kokoro-onnx. Runs in the same separate process. |
 | `soundfile` / libsndfile | BSD-3-Clause / LGPL-2.1-or-later | Writes WAV files. |
 | whisper.cpp + Whisper models (only if `CAPTIONS_ALIGN=whisper`) | MIT | Word-level caption alignment, downloaded on first use. |
-| Fonts: Inter, Playfair Display, Archivo Black | SIL Open Font License 1.1 | Theme fonts, fetched and cached by HyperFrames at render time. |
+| Fonts: Inter, EB Garamond, League Gothic, Oswald, IBM Plex Mono, JetBrains Mono | SIL Open Font License 1.1 | Theme fonts, fetched and cached by HyperFrames at render time. |
 | Fonts: Noto (core, CJK, color emoji), Liberation | SIL OFL 1.1 | Fallback fonts for every language. |
 | tini | MIT | Init process. |
 | Caddy (only `docker-compose.https.yml`) | Apache-2.0 | Separate container for HTTPS. |

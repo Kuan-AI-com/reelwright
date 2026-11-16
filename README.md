@@ -116,7 +116,7 @@ Full guide, sizing and hardening: **[docs/deploy-hostinger.md](docs/deploy-hosti
   "aspect": "16:9",
   "theme": "midnight",
   "scenes": [
-    { "type": "title", "heading": "Why the sea breathes twice a day",
+    { "type": "title", "heading": "Why the sea rises twice a day",
       "narration": "Twice a day, the ocean rises and falls. The reason is a tug of war in space." },
     { "type": "stat", "value": 46, "suffix": "%", "label": "of the Moon's pull is what the Sun adds",
       "source": "Ratio of solar to lunar tidal force",
