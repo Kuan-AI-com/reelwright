@@ -9,4 +9,4 @@ Self-hosted AI video studio: storyboard JSON → local TTS (Kokoro via HyperFram
 - Schema changes: update `src/storyboard.mjs`, `docs/storyboard.md`, `skills/reelwright/references/storyboard.md` and the tests together.
 - New dependency or bundled component → add it to `THIRD_PARTY_NOTICES.md` with its license.
 - Never commit `.env`, `data/`, rendered media (except `docs/media/`), or secrets.
-- Pending work lives in `TODO.md`.
+- The roadmap lives in GitHub issues. `TODO.md` is a local, git-ignored file for maintainer notes.

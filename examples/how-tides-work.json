@@ -6,10 +6,48 @@
   "voice": "af_heart",
   "captions": true,
   "scenes": [
-    { "type": "title", "heading": "Why the sea breathes twice a day", "subheading": "Tides, explained in one minute", "narration": "Twice a day, the ocean rises and falls. Here is why." },
-    { "type": "bullets", "heading": "Three forces at play", "items": ["The Moon's gravity pulls the water", "The Sun adds a smaller pull", "Earth spins underneath both bulges"], "narration": "Three things are at play. The Moon's gravity pulls on the oceans, the Sun adds a smaller pull, and the Earth spins underneath it all." },
-    { "type": "stat", "value": 46, "suffix": "%", "label": "of the Moon's pull is what the Sun adds", "source": "Ratio of solar to lunar tidal force", "narration": "The Sun is huge, but far away. Its tidal pull is only about forty six percent of the Moon's." },
-    { "type": "compare", "heading": "Spring vs neap tides", "left": { "title": "Spring tides", "text": "Sun and Moon line up. Bigger highs, lower lows." }, "right": { "title": "Neap tides", "text": "They pull at right angles. Gentler tides." }, "narration": "When the Sun and Moon line up, their pulls add together and we get spring tides. When they pull at right angles, we get gentle neap tides." },
-    { "type": "outro", "heading": "Two bulges, one spinning planet", "subheading": "That's the whole trick.", "narration": "So, two bulges of water and one spinning planet. That's the whole trick." }
+    {
+      "type": "title",
+      "heading": "Why the sea breathes twice a day",
+      "subheading": "Tides, explained in one minute",
+      "narration": "Twice a day, the ocean rises and falls. Here is why."
+    },
+    {
+      "type": "bullets",
+      "heading": "Three forces at play",
+      "items": [
+        "The Moon's gravity pulls the water",
+        "Sun: a weaker second pull",
+        "Earth spins underneath both bulges"
+      ],
+      "narration": "Three things are at play. The Moon's gravity pulls on the oceans, the Sun adds a smaller pull, and the Earth spins underneath it all."
+    },
+    {
+      "type": "stat",
+      "value": 46,
+      "suffix": "%",
+      "label": "of the Moon's pull is what the Sun adds",
+      "source": "Ratio of solar to lunar tidal force",
+      "narration": "The Sun is huge, but far away. Its tidal pull is only about forty six percent of the Moon's."
+    },
+    {
+      "type": "compare",
+      "heading": "Spring vs neap tides",
+      "left": {
+        "title": "Spring tides",
+        "text": "Sun and Moon line up. Bigger highs, lower lows."
+      },
+      "right": {
+        "title": "Neap tides",
+        "text": "They pull at right angles. Gentler tides."
+      },
+      "narration": "When the Sun and Moon line up, their pulls add together and we get spring tides. When they pull at right angles, we get gentle neap tides."
+    },
+    {
+      "type": "outro",
+      "heading": "Two bulges, one spinning planet",
+      "subheading": "High tide, low tide, twice a day",
+      "narration": "So, two bulges of water and one spinning planet. That's the whole trick."
+    }
   ]
 }

@@ -117,6 +117,15 @@ textarea.json { font: 12px/1.5 var(--mono); min-height: 420px; }
 .toast.bad { border-color: var(--bad); }
 .notice { font-size: 13px; color: var(--muted); border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; }
 
+.slop .score { flex: 0 0 auto; font: 700 13px var(--mono); padding: 3px 10px; border-radius: 999px; text-align: center; }
+.slop .score.good { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+.slop .score.meh { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.slop .score.bad { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+.findings { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.findings li { border-left: 3px solid var(--muted); padding: 2px 0 2px 10px; }
+.findings li.warn { border-color: var(--warn); }
+.findings li.error { border-color: var(--bad); }
+
 @media (max-width: 1100px) {
   .editor { grid-template-columns: 1fr; }
   .editor .right { position: static; order: -1; }

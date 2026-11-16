@@ -1,4 +1,5 @@
 // Web studio + JSON API. Plain node:http, no framework.
+import { lintStoryboard } from './slop.mjs';
 import { createServer } from 'node:http';
 import { createReadStream, existsSync, statSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, extname, normalize, sep } from 'node:path';
@@ -255,7 +256,7 @@ export function createApp(config) {
       const pid = randomBytes(12).toString('base64url');
       previews.set(pid, { html: p.html, exp: Date.now() + 30 * 60 * 1000 });
       for (const [k, v] of previews) if (v.exp < Date.now() || previews.size > 40) previews.delete(k);
-      return send(res, 200, { url: `/preview/${pid}`, duration: p.duration });
+      return send(res, 200, { url: `/preview/${pid}`, duration: p.duration, lint: lintStoryboard(body.storyboard) });
     }
 
     const m = path.match(/^\/api\/videos\/([a-z0-9-]{1,40})(?:\/(draft|render|cancel))?$/);

@@ -37,3 +37,20 @@ A storyboard is one JSON object. Unknown fields are ignored; every problem is re
 ## Timing
 
 Scene duration = max(type minimum, 0.35 s lead-in + spoken length + 0.65 s tail), plus 0.4 s per bullet beyond three. Spoken length comes from the actual voice clip (or an estimate of ~2.5 words/s when rendering silent). Captions group 6 words / 34 chars (4 / 22 in 9:16).
+## Slop check
+
+`reelwright lint storyboard.json` (and the studio's *Slop check* panel) scores a storyboard from 0 to 100 and lists what to fix:
+
+| Rule | Severity | Example |
+|---|---|---|
+| `slop.opener` | warn | "In today's fast-paced world", "Have you ever wondered", "Let's dive in", "En el mundo actual" |
+| `slop.hype` | warn | game-changer, unlock, delve, seamless, revolucionario |
+| `slop.ending` | warn | "The possibilities are endless", "In conclusion", "like and subscribe" |
+| `slop.not-x-but-y` | warn | "It's not just a habit, it's a lifestyle" |
+| `facts.unsourced` / `facts.unattributed` | error | a `stat` or `bars` scene without `source`, a `quote` without `author` |
+| `screen.repeats-voice` | warn | on-screen text that is a word-for-word piece of the narration |
+| `pace.long-scene` / `pace.long-sentence` | warn / info | more than 48 words in a scene, more than 28 in a sentence |
+| `voice.questions` / `voice.exclamations` / `voice.dashes` | warn / info | more than 3 questions, more than 1 "!", more than 2 em dashes |
+| `rhythm.repeat` / `rhythm.slideshow` | info / warn | three scenes of the same type in a row; mostly bullet lists |
+
+It is a heuristic: a clean score doesn't make a script good, but a low one usually means it sounds generated. `--json` prints machine-readable findings; the exit code is 1 when there are errors.

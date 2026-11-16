@@ -5,6 +5,7 @@
 //   openrouter   Ollama, LM Studio, vLLM, llama.cpp server…)
 //   ollama
 //   none       — no LLM; write the script yourself (text or storyboard JSON)
+import { lintStoryboard, formatFindings } from './slop.mjs';
 import { STORYBOARD_JSON_SCHEMA, SCENE_TYPES, validateStoryboard } from './storyboard.mjs';
 
 const DEFAULTS = {
@@ -35,7 +36,14 @@ How a good storyboard reads:
 - On-screen text supports the narration instead of repeating it word for word. Headings stay under 8 words; list items under 9 words.
 - Use "stat" and "bars" only for figures you are confident are accurate, and put where the figure comes from in "source". If you are not sure of a number, describe the idea in words instead. Never invent statistics, quotes or sources.
 - Use "quote" only for a real, well-known quote you can attribute correctly, or leave it out.
-- Vary the scene types so the video has rhythm. Leave out fields a scene type does not use.`;
+- Vary the scene types so the video has rhythm. Leave out fields a scene type does not use.
+
+Write like a sharp human explainer, not like an AI:
+- Open with the most surprising concrete fact or a specific question about this topic. Never "In today's world", "Have you ever wondered", "Let's dive in", "In this video we will".
+- No hype or filler words: game-changer, revolutionary, unlock, unleash, harness, delve, tapestry, landscape, seamless, robust, pivotal, elevate, embark. In Spanish: revolucionario, innovador, sin precedentes, desbloquear, potenciar, sumergirse.
+- No "it's not X, it's Y" constructions, no rhetorical-question chains, at most one exclamation mark, no em dashes.
+- Prefer specifics over adjectives: a number, a name, a place, a comparison the viewer can picture.
+- End on the single thing to remember or do. Never "the possibilities are endless", "only time will tell", "in conclusion", "like and subscribe".`;
 }
 
 export function userPrompt({ topic, language = 'en', targetSeconds = 60, notes = '' }) {
@@ -117,5 +125,18 @@ export async function draftStoryboard(llm, brief, defaults = {}) {
     result = validateStoryboard({ ...raw, language: brief.language }, defaults);
   }
   if (!result.ok) throw new Error(`the model's storyboard did not validate: ${result.errors.slice(0, 5).join('; ')}`);
+
+  // One editing pass if the slop check finds real problems.
+  const report = lintStoryboard(result.storyboard);
+  const serious = report.findings.filter((f) => f.severity !== 'info');
+  if (serious.length && llm.revise !== false) {
+    const notes = `${brief.notes || ''}\nRewrite your previous draft (keep what works) and fix these issues:\n${formatFindings(serious).slice(0, 15).join('\n')}`.trim();
+    try {
+      const revised = validateStoryboard({ ...(await call(llm, { ...brief, notes })), language: brief.language }, defaults);
+      if (revised.ok && lintStoryboard(revised.storyboard).score > report.score) return revised.storyboard;
+    } catch {
+      /* keep the first draft */
+    }
+  }
   return result.storyboard;
 }

@@ -4,3 +4,4 @@ data/
 *.wav
 .env
 .DS_Store
+TODO.md

@@ -1,6 +1,9 @@
 <div align="center">
 
-# 🎬 Reelwright
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/media/wordmark-dark.png">
+  <img src="docs/media/wordmark-light.png" width="340" alt="Reelwright">
+</picture>
 
 ### Type a topic. Get a narrated, captioned, animated video.
 
@@ -12,8 +15,12 @@ Local voice, no per-video fees, a review step before anything renders, and AI di
 ![Node 22+](https://img.shields.io/badge/node-22%2B-339933)
 ![Docker](https://img.shields.io/badge/docker-amd64%20%7C%20arm64-2496ED)
 
+<br>
+
 <!-- Hostinger partner link: append &REFERRALCODE=<code> to the button URL. Docs: docs/deploy-hostinger.md -->
-[![Deploy on Hostinger](https://img.shields.io/badge/Deploy%20on-Hostinger-673DE6?logo=hostinger&logoColor=white)](https://www.hostinger.com/docker-hosting?compose_url=https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.yml)
+<a href="https://www.hostinger.com/docker-hosting?compose_url=https://raw.githubusercontent.com/Kuan-AI-com/reelwright/main/docker-compose.yml"><img src="https://assets.hostinger.com/vps/deploy.svg" width="296" alt="Deploy on Hostinger"></a>
+
+<br><br>
 
 <img src="docs/media/demo.gif" width="640" alt="A Reelwright explainer: title card, a counting statistic, word-highlighted captions">
 &nbsp;
@@ -41,7 +48,16 @@ Local voice, no per-video fees, a review step before anything renders, and AI di
 - **Live preview.** Edit a scene and scrub the timeline in the browser before spending a render.
 - **AI disclosure by default:** an on-screen label plus MP4 metadata, so you are covered for the [EU AI Act](docs/legal.md) and platform labels.
 - **Deterministic rendering** with [HyperFrames](https://hyperframes.heygen.com): the same storyboard always produces the same video.
-- **Agent-ready.** Ships a [skill](skills/reelwright/SKILL.md) so Claude Code and other coding agents can write storyboards and render videos for you.
+- **Slop check.** Every script is scored for the habits that make AI videos feel generic: stock openers ("in today's world…", "let's dive in"), hype words, "it's not X, it's Y", empty endings, numbers without a source, on-screen text that just repeats the voice. In the studio, the CLI (`reelwright lint`) and the LLM drafting loop, which rewrites once when it scores badly.
+- **Agent-ready.** Ships [skills](skills/) so Claude Code and other coding agents can plan, write, fact-check and render videos for you.
+
+## The studio
+
+<img src="docs/media/studio-board.png" alt="The editorial board: ideas, script review, rendering, ready and published columns">
+
+<img src="docs/media/studio-editor.png" alt="The script editor: scenes on the left, live preview and slop check on the right">
+
+<sub>Left: write or edit scenes. Right: a live preview you can scrub, and the slop check with what to fix in each scene.</sub>
 
 ## Quickstart
 
@@ -120,6 +136,7 @@ reelwright make "<topic>"            draft with your LLM, voice, render
 reelwright make --storyboard s.json  render a storyboard
 reelwright make --text script.txt    title + one paragraph per scene, no LLM
 reelwright draft "<topic>"           only write the storyboard (review, then make)
+reelwright lint s.json              slop check: stock phrases, hype, unsourced numbers, pacing
 reelwright serve                     web studio
 reelwright doctor                    check the setup
 reelwright voices                    list voices
@@ -129,11 +146,18 @@ Options: `--lang`, `--seconds`, `--aspect`, `--theme`, `--voice`, `--quality dra
 
 ## Use it from a coding agent
 
-Copy [`skills/reelwright`](skills/reelwright) into your agent's skills folder, for example `~/.claude/skills/` for Claude Code. Then ask:
+Copy the folders in [`skills/`](skills) into your agent's skills folder, for example `~/.claude/skills/` for Claude Code. Then ask:
 
 > *"Make a 60-second vertical video explaining compound interest, in Spanish."*
 
-The skill teaches the agent the storyboard format, the honesty rules (real sources, no invented quotes) and how to render and check the result. A running studio can also be driven over its [HTTP API](skills/reelwright/references/api.md).
+| Skill | What it teaches the agent |
+|---|---|
+| [`reelwright`](skills/reelwright/SKILL.md) | The storyboard format, how to render, lint and check the result, the HTTP API. |
+| [`video-storytelling`](skills/video-storytelling/SKILL.md) | Hook, turn and takeaway; beat templates for 15 s to 3 min; which visual fits which kind of information; vertical specifics. |
+| [`video-script-doctor`](skills/video-script-doctor/SKILL.md) | Rewriting a script so it stops sounding AI-written: specific over generic, spoken over written, the phrases to cut. |
+| [`video-fact-check`](skills/video-fact-check/SKILL.md) | Verifying every number and quote before render, and what to do when a claim can't be verified. |
+
+The writing and fact-check skills work for any video tool, not only Reelwright. A running studio can also be driven over its [HTTP API](skills/reelwright/references/api.md).
 
 ## Honest limits
 

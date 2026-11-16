@@ -396,7 +396,7 @@ function sceneEditor(sb, i, onChange) {
 function previewStage(aspect) {
   const [w, hgt] = aspect === '9:16' ? [1080, 1920] : aspect === '1:1' ? [1080, 1080] : [1920, 1080];
   const frame = h('iframe', { sandbox: 'allow-scripts', title: 'Preview', width: w, height: hgt });
-  const stage = h('div', { class: 'stage', style: `aspect-ratio:${w}/${hgt};${hgt > w ? 'max-height:70vh;margin:0 auto;' : ''}` }, frame);
+  const stage = h('div', { class: 'stage', style: `aspect-ratio:${w}/${hgt};${hgt > w ? 'height:min(70vh,720px);width:auto;max-width:100%;margin:0 auto;' : ''}` }, frame);
   const fit = () => {
     const scale = stage.clientWidth / w;
     frame.style.transform = `scale(${scale})`;
@@ -458,11 +458,29 @@ async function renderVideo(id) {
 
   let previewTimer = null;
   const errorsBox = h('div');
+  const slopBox = h('div', { class: 'panel slop' });
+  function drawSlop(report) {
+    if (!report) return slopBox.replaceChildren();
+    const { score, findings } = report;
+    const grade = score >= 90 ? 'good' : score >= 70 ? 'meh' : 'bad';
+    slopBox.replaceChildren(
+      h('div', { class: 'row', style: 'align-items:center' },
+        h('h3', {}, 'Slop check'),
+        h('span', { class: `score ${grade}`, title: 'Heuristic: stock phrases, hype words, unsourced numbers, pacing' }, `${score}/100`)),
+      findings.length
+        ? h('ul', { class: 'findings' }, ...findings.slice(0, 12).map((f) =>
+            h('li', { class: f.severity },
+              h('b', {}, f.scene == null ? 'Whole video' : `Scene ${f.scene + 1} · ${f.field}`), ' ', f.message,
+              h('div', { class: 'muted small' }, f.fix))))
+        : h('div', { class: 'muted small' }, 'No stock phrases, hype words or unsourced numbers found. Still read it out loud once.'),
+    );
+  }
   async function refreshPreview() {
     if (!sb || !preview) return;
     try {
       const p = await api('/api/preview', { method: 'POST', body: { storyboard: sb } });
       errorsBox.replaceChildren();
+      drawSlop(p.lint);
       duration = p.duration;
       preview.frame.onload = () => seek(Math.min(t, duration));
       preview.frame.src = p.url;
@@ -652,6 +670,7 @@ async function renderVideo(id) {
     preview = previewStage(sb.aspect);
     right.replaceChildren(
       h('div', { class: 'panel' }, h('div', { class: 'row', style: 'align-items:center' }, h('h3', {}, 'Live preview'), h('span', { class: 'muted small', style: 'text-align:right' }, 'silent · instant · final fonts and voice timing apply at render')), preview.stage, h('div', { class: 'transport' }, playBtn, scrub, timeLbl), errorsBox),
+      slopBox,
       statusArea,
     );
     refreshPreview();

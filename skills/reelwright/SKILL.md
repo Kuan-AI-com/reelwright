@@ -50,6 +50,8 @@ Rules that make videos good (and keep them honest):
 6. **Vertical (`9:16`)** for Shorts/Reels/TikTok: fewer words on screen, max 4 bullets.
 7. Voice must match `language` (e.g. `ef_dora` for `es`). `reelwright voices` lists them.
 
+Before rendering, run the slop check and fix what it finds: `reelwright lint sb.json` (stock openers, hype words, "it's not X, it's Y", unsourced numbers, on-screen text repeating the voice, pacing). For deeper passes, the companion skills in this folder: `video-storytelling` (structure), `video-script-doctor` (de-slop the writing), `video-fact-check` (verify every number and quote).
+
 Validate before rendering — the CLI prints every problem with its path (`scenes[2].bars is required`), fix them all and retry:
 
 ```bash

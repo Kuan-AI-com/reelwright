@@ -8,6 +8,7 @@ import { loadConfig } from './config.mjs';
 import { draft, produce } from './pipeline.mjs';
 import { validateStoryboard, storyboardFromText, VOICES, THEMES, ASPECTS } from './storyboard.mjs';
 import { describeLlm } from './llm.mjs';
+import { lintStoryboard, formatFindings } from './slop.mjs';
 import { runHyperframes, run } from './hf.mjs';
 
 const HELP = `reelwright — topic in, narrated motion-graphics video out.
@@ -17,6 +18,7 @@ Usage
   reelwright make --storyboard s.json render a storyboard you wrote or edited
   reelwright make --text script.txt   render plain text (title + one paragraph per scene), no LLM
   reelwright draft "<topic>"          only write the storyboard JSON (review it, then make)
+  reelwright lint s.json              slop check: stock phrases, hype, unsourced numbers, pacing
   reelwright serve                    start the web studio (default http://localhost:8080)
   reelwright doctor                   check ffmpeg, Chrome, local TTS and your LLM settings
   reelwright voices                   list the built-in voices
@@ -185,6 +187,20 @@ async function cmdDoctor(config) {
   console.log(rows.join('\n'));
 }
 
+async function cmdLint(values, positionals) {
+  const file = values.storyboard || positionals[0];
+  if (!file) throw new Error('give a storyboard: reelwright lint storyboard.json');
+  const raw = JSON.parse(await readFile(file, 'utf8'));
+  const { ok, errors, storyboard } = validateStoryboard(raw);
+  if (!ok) throw new Error(`storyboard is not valid:\n  ${errors.join('\n  ')}`);
+  const report = lintStoryboard(storyboard);
+  if (values.json) return console.log(JSON.stringify(report, null, 2));
+  const lines = formatFindings(report.findings);
+  console.log(lines.length ? lines.join('\n') : 'No slop found.');
+  console.log(`\nscore ${report.score}/100 · ${report.findings.length} finding(s)`);
+  if (report.findings.some((f) => f.severity === 'error')) process.exitCode = 1;
+}
+
 async function main() {
   const [cmd, ...rest] = process.argv.slice(2);
   if (!cmd || cmd === '--help' || cmd === '-h' || cmd === 'help') return console.log(HELP);
@@ -200,6 +216,8 @@ async function main() {
       const { startServer } = await import('./server.mjs');
       return startServer(config);
     }
+    case 'lint':
+      return cmdLint(values, positionals);
     case 'doctor':
       return cmdDoctor(config);
     case 'voices':
